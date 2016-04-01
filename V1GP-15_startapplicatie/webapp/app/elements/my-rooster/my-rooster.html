@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
 
 <dom-module id="my-rooster">
   <template>
@@ -15,53 +16,41 @@
         @apply(--paper-font-body1);
       }
 
-      th,td
-      {
-        margin: 0;
-        text-align: center;
-        border-collapse: collapse;
-        /*outline: 1px solid #3f51b5;*/
-      }
-
-      td
-      {
-        padding: 5px 10px;
-      }
-
-      th
-      {
-        background: #3f51b5;
-        color: white;
-        padding: 5px 10px;
-      }
-
-      td:hover
-      {
-        cursor: pointer;
-        background: #c5cae9;
+      .dag {
+        color: red;
       }
     </style>
 
     <h1 class="page-title">Overzicht van mijn rooster ( {{username}} )</h1>
-    <table>
-      <tr>
-        <th>Maandag</th>
-        <th>Dinsdag</th>
-        <th>Woensdag</th>
-        <th>Donderdag</th>
-        <th>Vrijdag</th>
-      </tr>
+
+    <iron-selector selected="{{weekValue}}" attr-for-selected="page">
+      <paper-button page="-1"raised><iron-icon icon="image:navigate-before"></iron-icon>Vorige week</paper-button>
+      <paper-button page="1"raised><iron-icon icon="image:navigate-next"></iron-icon>Volgende week</paper-button>
+    </iron-selector>
+
+    <div>{{weekValue}}</div>
+
+    <h2 class="dag">Maandag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <tr>
-        <td>
-          {{item.les}}{{item.lokaal}}
-        </td>
-        <td>
-          test1
-        </td>
-      </tr>
+      <div>{{item.maandag}}</div>
     </template>
-  </table>
+    <h2>Dinsdag:</h2>
+    <template is="dom-repeat" items="{{lessen}}">
+      <div>{{item.dinsdag}}</div>
+    </template>
+    <h2>Woensdag:</h2>
+    <template is="dom-repeat" items="{{lessen}}">
+      <div>{{item.woensdag}}</div>
+    </template>
+    <h2>Donderdag:</h2>
+    <template is="dom-repeat" items="{{lessen}}">
+      <div>{{item.donderdag}}</div>
+    </template>
+    <h2>Vrijdag:</h2>
+    <template is="dom-repeat" items="{{lessen}}">
+      <div>{{item.vrijdag}}</div>
+    </template>
+
 
 
     <iron-ajax

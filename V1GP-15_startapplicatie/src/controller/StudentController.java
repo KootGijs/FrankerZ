@@ -68,7 +68,9 @@ public class StudentController implements Handler {
 	private void mijnRooster(Conversation conversation) {
 		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String gebruikersnaam = jsonObjectIn.getString("username");
-		
+//		int week = 10; 
+//		String weekString = jsonObjectIn.getString("week");
+//		week += Integer.parseInt(weekString);
 		Student student = informatieSysteem.getStudent(gebruikersnaam);			// Student-object opzoeken
 		String klasCode = student.getMijnKlas().getKlasCode();					// klascode van de student opzoeken
 		ArrayList<Les> lessen = informatieSysteem.getLessenVanKlas(klasCode);	// lessen opzoeken
@@ -76,12 +78,30 @@ public class StudentController implements Handler {
 		JsonArrayBuilder jab = Json.createArrayBuilder();						// Uiteindelijk gaat er een array...
 		
 		for (Les l : lessen) {													// met daarin voor elke les een JSON-object... 
+			if (l.ifLesDag("maandag",10)) {
+				jab.add(Json.createObjectBuilder()
+					.add("maandag", l.toString()));
+			}
+			if (l.ifLesDag("dinsdag",10)) {
+				jab.add(Json.createObjectBuilder()
+					.add("dinsdag", l.toString()));
+			}
+			if (l.ifLesDag("woendag",10)) {
+				jab.add(Json.createObjectBuilder()
+					.add("woensdag", l.toString()));
+			}
+			if (l.ifLesDag("donderdag",10)) {
+				jab.add(Json.createObjectBuilder()
+					.add("donderdag", l.toString()));
+			}
+			if (l.ifLesDag("vrijdag",10)) {
+				jab.add(Json.createObjectBuilder()
+					.add("vrijdag", l.toString()));
+			}
 			jab.add(Json.createObjectBuilder()
 				.add("les", l.getLesTijd()));
 			jab.add(Json.createObjectBuilder()
 				.add("lokaal", l.getLesLokaal()));
-			jab.add(Json.createObjectBuilder()
-				.add("maandag", l.getLesMaandag("1")));
 		}
 		
 		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI!

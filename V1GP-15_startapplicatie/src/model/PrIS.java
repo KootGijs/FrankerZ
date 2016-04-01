@@ -231,15 +231,17 @@ public class PrIS {
 				} else if (vak.equals(oodc.getVakCode())) {
 					l.setVak(oodc);
 				}
-				
+				if (beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+					System.out.println(l);;
+				}
 				deLessen.add(l);
 //				System.out.println(l);
 			}
-			for (int i=0; i < deLessen.size(); i++) {
-				if (deLessen.get(i).getKlas().equals(v1b)) {
-					System.out.println(deLessen.get(i));
-				}
-			}
+//			for (int i=0; i < deLessen.size(); i++) {
+//				if (deLessen.get(i).getKlas().equals(v1b)) {
+//					System.out.println(deLessen.get(i));
+//				}
+//			}
 			sc.close();
 		}
 	}
