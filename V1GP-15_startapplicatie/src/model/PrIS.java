@@ -151,6 +151,10 @@ public class PrIS {
 		return resultaat;
 	}
 	
+//	public ArrayList<Presentie> getAbsentVanLes(Les les) {
+//		
+//	}
+	
 	
 	public void inladenKlas(String klas) throws FileNotFoundException {
 		String klasFile = klas + ".txt";

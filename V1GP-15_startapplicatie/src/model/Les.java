@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Les {
@@ -12,6 +13,7 @@ public class Les {
 	private String docent;
 	private Klas klas;
 	private Vak vak;
+	private ArrayList<Student> afgemeldeStudenten;
 	
 	public Les(Calendar bd, Calendar ed, String datum, String bt, String et, String lo, String docent) {
 		beginDate = bd;
@@ -21,6 +23,7 @@ public class Les {
 		eindTijd = et;
 		lokaal = lo;
 		this.docent = docent;
+		afgemeldeStudenten = new ArrayList<Student>();
 	}
 	
 	public void setVak(Vak vak) {
@@ -40,36 +43,6 @@ public class Les {
 	}
 	public String getLesLokaal(){
 		return "Les: "+vak+", van: "+docent+" \nin lokaal: "+lokaal;
-	}
-	
-	public String getLesDag(String dag) {
-		String s = "";
-		if (dag == "maandag"){
-			if (beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-				s = datum+" "+beginTijd+"-"+eindTijd+" \nKlas: "+klas+" \nLes: "+vak+", van: "+docent+" \nLokaal: "+lokaal+"\n";
-			}
-		}
-		if (dag == "dinsdag") {
-			if (beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
-				s = datum+" "+beginTijd+"-"+eindTijd+" \nKlas: "+klas+" \nLes: "+vak+", van: "+docent+" \nLokaal: "+lokaal+"\n";
-			}
-		}
-		if (dag == "woensdag") {
-			if (beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
-				s = datum+" "+beginTijd+"-"+eindTijd+" \nKlas: "+klas+" \nLes: "+vak+", van: "+docent+" \nLokaal: "+lokaal+"\n";
-			}
-		}
-		if (dag == "donderdag") {
-			if (beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
-				s = datum+" "+beginTijd+"-"+eindTijd+" \nKlas: "+klas+" \nLes: "+vak+", van: "+docent+" \nLokaal: "+lokaal+"\n";
-			}
-		}
-		if (dag == "vrijdag") {
-			if (beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
-				s = datum+" "+beginTijd+"-"+eindTijd+" \nKlas: "+klas+" \nLes: "+vak+", van: "+docent+" \nLokaal: "+lokaal+"\n";
-			}
-		}
-		return s;
 	}
 	
 	public Boolean ifLesDag(String dag, int week) {
@@ -92,6 +65,23 @@ public class Les {
 			}
 		}
 		return b;
+	}
+	
+	public void setAfmelding(Student student) {
+		if (!afgemeldeStudenten.contains(student)) {
+			afgemeldeStudenten.add(student);
+		}
+	}
+	
+	public ArrayList<Student> getAfgemeldeStudenten(){
+		return afgemeldeStudenten;
+	}
+	
+	public boolean isAfgemeld(Student student){
+		if (afgemeldeStudenten.contains(student)){
+			return true;
+		}
+		return false;
 	}
 	
 	public String toString() {

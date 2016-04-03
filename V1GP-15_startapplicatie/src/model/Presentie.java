@@ -16,4 +16,15 @@ public class Presentie {
 			afgemeldeStudenten.add(student);
 		}
 	}
+	
+	public ArrayList<Student> getAfgemeldeStudenten(){
+		return afgemeldeStudenten;
+	}
+	
+	public boolean isAfgemeld(Student student){
+		if (afgemeldeStudenten.contains(student)){
+			return true;
+		}
+		return false;
+	}
 }

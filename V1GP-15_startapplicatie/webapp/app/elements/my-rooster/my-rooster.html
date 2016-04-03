@@ -2,8 +2,10 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+
 
 <dom-module id="my-rooster">
   <template>
@@ -21,7 +23,7 @@
       }
     </style>
 
-    <h1 class="page-title">Overzicht van mijn rooster ( {{username}} )</h1>
+    <h1 class="page-title">Overzicht van mijn rooster ( {{username}} )<br />Druk op een les om er voor af te melden</h1>
 
     <iron-selector selected="{{weekValue}}" attr-for-selected="page">
       <paper-button page="-1"raised><iron-icon icon="image:navigate-before"></iron-icon>Vorige week</paper-button>
@@ -32,26 +34,39 @@
 
     <h2 class="dag">Maandag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div>{{item.maandag}}</div>
+      <iron-selector selected="{{buttonValue}}" attr-for-selected="value">
+        <div><paper-button value="maandag" on-click="toggleDialog">{{item.maandag}}</paper-button></div>
+      <iron-selector>
     </template>
     <h2>Dinsdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div>{{item.dinsdag}}</div>
+      <div><paper-button on-click="toggleDialog">{{item.dinsdag}}</paper-button></div>
     </template>
     <h2>Woensdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div>{{item.woensdag}}</div>
+      <div><paper-button on-click="toggleDialog">{{item.woensdag}}</paper-button></div>
     </template>
     <h2>Donderdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div>{{item.donderdag}}</div>
+      <div><paper-button on-click="toggleDialog">{{item.donderdag}}</paper-button></div>
     </template>
     <h2>Vrijdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div>{{item.vrijdag}}</div>
+      <div><paper-button on-click="toggleDialog">{{item.vrijdag}}</paper-button></div>
     </template>
 
+    <paper-dialog id="dialog">
+      <h2>Header</h2>
+      <div>Weet u dat zeker dat u voor deze les wilt afmelden?</div>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Nee</paper-button>
+        <paper-button dialog-confirm>Ja</paper-button>
+      </div>
+    </paper-dialog>
 
+    <script>
+
+    </script>
 
     <iron-ajax
       id="ajax"
@@ -77,8 +92,12 @@
           }
         },
 
+        toggleDialog: function() {
+            this.$.dialog.toggle();
+        },
+
         responseHandler: function(request) {
-          console.log(request.detail.response);
+          console.log("request.detail.response : "+request.detail.response);
           this.lessen = request.detail.response;
         },
 
