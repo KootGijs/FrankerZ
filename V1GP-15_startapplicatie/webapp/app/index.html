@@ -104,6 +104,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Toon rooster</span>
           </a>
 
+          <a data-route="toonafmelding" href="{{baseUrl}}afmeldingen" hidden="{{!rolstudent}}">
+            <iron-icon icon="icons:schedule"></iron-icon>
+            <span>Toon afmeldingen</span>
+          </a>
+
         </paper-menu>
       </paper-scroll-header-panel>
 
@@ -167,6 +172,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <section data-route="toonrooster">
               <paper-material elevation="1">
                 <my-rooster rol="[[rol]]" username="[[username]]"></my-rooster>
+              </paper-material>
+            </section>
+
+            <section data-route="toonafmelding">
+              <paper-material elevation="1">
+                <my-afmelding rol="[[rol]]" username="[[username]]"></my-afmelding>
               </paper-material>
             </section>
 

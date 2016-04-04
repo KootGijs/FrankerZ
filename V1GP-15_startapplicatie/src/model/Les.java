@@ -67,9 +67,22 @@ public class Les {
 		return b;
 	}
 	
+	public String getBeginDatumTijd(){
+		return datum+" "+beginTijd;
+	}
+	
+	public boolean ifHuidigeWeek(int week) {
+		Boolean b = false;
+		if (beginDate.get(Calendar.WEEK_OF_YEAR) == week) {
+			b = true;
+		}
+		return b;
+	}
+	
 	public void setAfmelding(Student student) {
 		if (!afgemeldeStudenten.contains(student)) {
 			afgemeldeStudenten.add(student);
+			System.out.println(student.getGebruikersNaam()+" heeft zich afgemeld voor: "+getBeginDatumTijd());
 		}
 	}
 	

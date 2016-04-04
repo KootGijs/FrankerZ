@@ -53,6 +53,5 @@ class UserController implements Handler {
 		String jsonOut = job.build().toString();
 		
 		conversation.sendJSONMessage(jsonOut);										// terugsturen naar de Polymer-GUI!
-	}
-	
+	}	
 }

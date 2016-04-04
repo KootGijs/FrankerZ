@@ -34,6 +34,12 @@ public class StudentController implements Handler {
 		if (conversation.getRequestedURI().startsWith("/student/rooster")) {
 			mijnRooster(conversation);
 		}
+		if (conversation.getRequestedURI().startsWith("/student/mijnafmelding")) {
+			mijnLessen(conversation);
+		}
+		if (conversation.getRequestedURI().startsWith("/student/mijnafmeldingversturen")) {
+			mijnAfmeldingVersturen(conversation);
+		}
 	}
 
 	/**
@@ -84,7 +90,7 @@ public class StudentController implements Handler {
 				jab.add(Json.createObjectBuilder()
 					.add("dinsdag", l.toString()));
 			}
-			if (l.ifLesDag("woendag",10)) {
+			if (l.ifLesDag("woensdag",10)) {
 				jab.add(Json.createObjectBuilder()
 					.add("woensdag", l.toString()));
 			}
@@ -99,6 +105,47 @@ public class StudentController implements Handler {
 		}
 		
 		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI!
+	}
+	
+	private void mijnLessen(Conversation conversation) {
+		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+		String gebruikersnaam = jsonObjectIn.getString("username");
+
+		Student student = informatieSysteem.getStudent(gebruikersnaam);			// Student-object opzoeken
+		String klasCode = student.getMijnKlas().getKlasCode();					// klascode van de student opzoeken
+		ArrayList<Les> lessen = informatieSysteem.getLessenVanKlas(klasCode);
+		
+		JsonArrayBuilder jab = Json.createArrayBuilder();						// Uiteindelijk gaat er een array...
+		
+		for (Les l : lessen) {													// met daarin voor elke les een JSON-object... 
+			if (l.ifHuidigeWeek(10)) {
+				jab.add(Json.createObjectBuilder()
+					.add("lessen", l.toString()));
+			}
+		}
+		
+		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI
+	}
+	
+	public void mijnAfmeldingVersturen(Conversation conversation) {
+		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
+		String gebruikersnaam = jsonObjectIn.getString("username");
+//		String lesNaam = jsonObjectIn.getString("afmeldLes");
+		int lesNummer = jsonObjectIn.getInt("lesIndex");
+
+		Student student = informatieSysteem.getStudent(gebruikersnaam);			// Student-object opzoeken
+		String klasCode = student.getMijnKlas().getKlasCode();					// klascode van de student opzoeken
+		ArrayList<Les> lessen = informatieSysteem.getLessenVanKlas(klasCode);
+
+//		Les les = informatieSysteem.getLes(lesNaam);
+		
+		for (int i=0; lessen.size() < i; i++) {													// met daarin voor elke les een JSON-object... 
+			if (lesNummer == i) {
+				lessen.get(i).setAfmelding(student);
+			}
+		}
+		
+//		les.setAfmelding(student);
 	}
 	
 }

@@ -125,7 +125,18 @@ public class PrIS {
 				break;
 			}
 		}
+		return resultaat;
+	}
+	
+	public Les getLes(String les) {
+		Les resultaat = null;
 		
+		for (Les l : deLessen) {
+			if (l.getBeginDatumTijd().equals(les)) {
+				resultaat = l;
+				break;
+			}
+		}
 		return resultaat;
 	}
 	

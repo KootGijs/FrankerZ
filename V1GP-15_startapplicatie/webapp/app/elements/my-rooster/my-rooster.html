@@ -34,25 +34,23 @@
 
     <h2 class="dag">Maandag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <iron-selector selected="{{buttonValue}}" attr-for-selected="value">
-        <div><paper-button value="maandag" on-click="toggleDialog">{{item.maandag}}</paper-button></div>
-      <iron-selector>
+      <div>{{item.maandag}}</div>
     </template>
     <h2>Dinsdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div><paper-button on-click="toggleDialog">{{item.dinsdag}}</paper-button></div>
+      <div>{{item.dinsdag}}</div>
     </template>
     <h2>Woensdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div><paper-button on-click="toggleDialog">{{item.woensdag}}</paper-button></div>
+      <div>{{item.woensdag}}</div>
     </template>
     <h2>Donderdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div><paper-button on-click="toggleDialog">{{item.donderdag}}</paper-button></div>
+      <div>{{item.donderdag}}</div>
     </template>
     <h2>Vrijdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
-      <div><paper-button on-click="toggleDialog">{{item.vrijdag}}</paper-button></div>
+      <div>{{item.vrijdag}}</div>
     </template>
 
     <paper-dialog id="dialog">
@@ -99,6 +97,7 @@
         responseHandler: function(request) {
           console.log("request.detail.response : "+request.detail.response);
           this.lessen = request.detail.response;
+
         },
 
         FetchLessen: function() {
