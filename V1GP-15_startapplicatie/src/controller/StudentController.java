@@ -131,7 +131,7 @@ public class StudentController implements Handler {
 		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String gebruikersnaam = jsonObjectIn.getString("username");
 		System.out.println(gebruikersnaam+" <-- probeerde af te melden");
-//		String lesNaam = jsonObjectIn.getString("afmeldLes");
+		
 		String lesNummerString = jsonObjectIn.getString("lesIndex");
 		int lesNummer = Integer.parseInt(lesNummerString);
 
@@ -139,20 +139,19 @@ public class StudentController implements Handler {
 		String klasCode = student.getMijnKlas().getKlasCode();					// klascode van de student opzoeken
 		ArrayList<Les> lessen = informatieSysteem.getLessenVanKlas(klasCode);
 
-//		Les les = informatieSysteem.getLes(lesNaam);
+//		JsonArrayBuilder jab = Json.createArrayBuilder();						// Uiteindelijk gaat er een array...
 		
-//		for (int i=0; lessen.size() < i; i++) {													// met daarin voor elke les een JSON-object... 
-//			if (lesNummer == i) {
-//				lessen.get(i).setAfmelding(student);
-//			}
-//		}
+//		jab.add(Json.createObjectBuilder()
+//				.add("afgemeld", "test1"));
+		
 		for (Les l : lessen) {
 			if (lesNummer == lessen.indexOf(l)) {
 				l.setAfmelding(student);
+//				jab.add(Json.createObjectBuilder()
+//						.add("afgemeld", l.toString()));
 			}
 		}
-		
-//		les.setAfmelding(student);
+//		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI		
 	}
 	
 }

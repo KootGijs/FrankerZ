@@ -30,25 +30,23 @@
       <paper-button page="1"raised><iron-icon icon="image:navigate-next"></iron-icon>Volgende week</paper-button>
     </iron-selector>
 
-    <div>{{weekValue}}</div>
-
     <h2 class="dag">Maandag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
       <div>{{item.maandag}}</div>
     </template>
-    <h2>Dinsdag:</h2>
+    <h2 class="dag">Dinsdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
       <div>{{item.dinsdag}}</div>
     </template>
-    <h2>Woensdag:</h2>
+    <h2 class="dag">Woensdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
       <div>{{item.woensdag}}</div>
     </template>
-    <h2>Donderdag:</h2>
+    <h2 class="dag">Donderdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
       <div>{{item.donderdag}}</div>
     </template>
-    <h2>Vrijdag:</h2>
+    <h2 class="dag">Vrijdag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
       <div>{{item.vrijdag}}</div>
     </template>
