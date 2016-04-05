@@ -22,9 +22,12 @@
     <h1 class="page-title">Overzicht van mijn afmeldingen ( {{username}} )<br />Druk op een les om er voor af te melden</h1>
 
     <h2 class="dag">Lessen voor deze week:</h2>
-    <template is="dom-repeat" items="{{lessen}}">
-      <div><paper-button id="{{index}}" on-click="toggleDialog">{{index}} - {{item.lessen}}</paper-button></div>
-    </template>
+
+      <template is="dom-repeat" items="{{lessen}}">
+        <div><paper-button id="{{index}}" on-click="toggleDialog">{{index}} - {{item.lessen}}</paper-button></div>
+      </template>
+
+    <div>{{indexNummer}}</div>
 
     <paper-dialog id="dialog">
       <h2>Header</h2>
@@ -94,12 +97,13 @@
         sendAfmelding: function() {
           console.log("Afmelden van les met user="+this.username);
           if (this.rol == "student") {
+            console.log("indexnummer = "+this.$.index);
             this.$.ajax2.contentType="application/json";
             this.$.ajax2.body={
               "username":this.username,
-              "lesIndex":this.$.
+              "lesIndex":"1"
             };
-            this.$.ajax.generateRequest();
+            this.$.ajax2.generateRequest();
           }
         }
 

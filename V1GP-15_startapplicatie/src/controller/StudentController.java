@@ -64,7 +64,7 @@ public class StudentController implements Handler {
 				continue;
 			else {
 				jab.add(Json.createObjectBuilder()
-						.add("naam", s.getVoornaam()));
+						.add("naam", s.getNaam()));
 			}
 		}
 		
@@ -130,8 +130,10 @@ public class StudentController implements Handler {
 	public void mijnAfmeldingVersturen(Conversation conversation) {
 		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String gebruikersnaam = jsonObjectIn.getString("username");
+		System.out.println(gebruikersnaam+" <-- probeerde af te melden");
 //		String lesNaam = jsonObjectIn.getString("afmeldLes");
-		int lesNummer = jsonObjectIn.getInt("lesIndex");
+		String lesNummerString = jsonObjectIn.getString("lesIndex");
+		int lesNummer = Integer.parseInt(lesNummerString);
 
 		Student student = informatieSysteem.getStudent(gebruikersnaam);			// Student-object opzoeken
 		String klasCode = student.getMijnKlas().getKlasCode();					// klascode van de student opzoeken
@@ -139,9 +141,14 @@ public class StudentController implements Handler {
 
 //		Les les = informatieSysteem.getLes(lesNaam);
 		
-		for (int i=0; lessen.size() < i; i++) {													// met daarin voor elke les een JSON-object... 
-			if (lesNummer == i) {
-				lessen.get(i).setAfmelding(student);
+//		for (int i=0; lessen.size() < i; i++) {													// met daarin voor elke les een JSON-object... 
+//			if (lesNummer == i) {
+//				lessen.get(i).setAfmelding(student);
+//			}
+//		}
+		for (Les l : lessen) {
+			if (lesNummer == lessen.indexOf(l)) {
+				l.setAfmelding(student);
 			}
 		}
 		

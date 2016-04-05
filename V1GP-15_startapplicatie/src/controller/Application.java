@@ -53,5 +53,7 @@ public class Application {
 		server.registerHandler("/student/mijnafmeldingversturen", studentController);
 		
 		server.start();
+		
+		System.out.println("app is gestart");
 	}
 }

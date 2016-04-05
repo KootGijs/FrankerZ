@@ -24,6 +24,15 @@ public class Student {
 	public String getVoornaam(){
 		return voornaam;
 	}
+	public String getAchternaam(){
+		return tussenvoegsel+" "+achternaam;
+	}
+	public String getNaam(){
+ 		return voornaam + " " + tussenvoegsel + " " + achternaam ;
+ 	}
+	public String getLeerlingnummer() {
+		return ""+leerlingnummer;
+	}
 	
 	public boolean controleerWachtwoord(String ww) {
 		return ww.equals(wachtwoord);

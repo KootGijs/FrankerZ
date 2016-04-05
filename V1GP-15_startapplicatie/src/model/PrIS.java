@@ -52,21 +52,6 @@ public class PrIS {
 		deDocenten.add(d1);
 		deDocenten.add(d2);
 		deDocenten.add(d3);
-		
-		Student s1 = new Student("Roel", "geheim", 105123, "Roel", "van", "Loon");
-//		Student s2 = new Student("Frans", "geheim");
-//		Student s3 = new Student("Daphne", "geheim");
-//		Student s4 = new Student("Jeroen", "geheim");
-		
-		s1.setMijnKlas(v1a);
-//		s2.setMijnKlas(k1);
-//		s3.setMijnKlas(k1);
-//		s4.setMijnKlas(k1);
-		
-		deStudenten.add(s1);
-//		deStudenten.add(s2);
-//		deStudenten.add(s3);
-//		deStudenten.add(s4);
 	}
 	Docent d1 = new Docent("Wim", "geheim");
 	Docent d2 = new Docent("Hans", "geheim");
@@ -246,17 +231,8 @@ public class PrIS {
 				} else if (vak.equals(oodc.getVakCode())) {
 					l.setVak(oodc);
 				}
-				if (beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-					System.out.println(l);;
-				}
 				deLessen.add(l);
-//				System.out.println(l);
 			}
-//			for (int i=0; i < deLessen.size(); i++) {
-//				if (deLessen.get(i).getKlas().equals(v1b)) {
-//					System.out.println(deLessen.get(i));
-//				}
-//			}
 			sc.close();
 		}
 	}
