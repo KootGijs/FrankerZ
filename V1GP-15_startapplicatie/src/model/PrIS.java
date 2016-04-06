@@ -22,14 +22,6 @@ public class PrIS {
 	 * associatie met de klassen Docent en Student. Uiteraard kan dit nog veel
 	 * verder uitgebreid en aangepast worden! 
 	 * 
-	 * De klasse fungeert min of meer als ingangspunt voor het domeinmodel. Op
-	 * dit moment zijn de volgende methoden aanroepbaar:
-	 * 
-	 * String login(String gebruikersnaam, String wachtwoord)
-	 * Docent getDocent(String gebruikersnaam)
-	 * Student getStudent(String gebruikersnaam)
-	 * ArrayList<Student> getStudentenVanKlas(String klasCode)
-	 * 
 	 * Methode login geeft de rol van de gebruiker die probeert in te loggen,
 	 * dat kan 'student', 'docent' of 'undefined' zijn! Die informatie kan gebruikt 
 	 * worden om in de Polymer-GUI te bepalen wat het volgende scherm is dat getoond 
@@ -68,7 +60,7 @@ public class PrIS {
 	Klas v1e = new Klas("SIE_V1E");
 	Klas v1f = new Klas("SIE_V1F");
 	
-	public String login(String gebruikersnaam, String wachtwoord) {
+	public String login(String gebruikersnaam, String wachtwoord) {				// Methode om in te loggen en de rol terug te geven
 		for (Docent d : deDocenten) {
 			if (d.getGebruikersNaam().equals(gebruikersnaam)) {
 				if (d.controleerWachtwoord(wachtwoord)) {
@@ -88,7 +80,7 @@ public class PrIS {
 		return "undefined";
 	}
 	
-	public Docent getDocent(String gebruikersnaam) {
+	public Docent getDocent(String gebruikersnaam) {							// Methode om de Docent object te krijgen bij invoer van een gebruikersnaam
 		Docent resultaat = null;
 		
 		for (Docent d : deDocenten) {
@@ -101,7 +93,7 @@ public class PrIS {
 		return resultaat;
 	}
 	
-	public Student getStudent(String gebruikersnaam) {
+	public Student getStudent(String gebruikersnaam) {							// Methode om de Student object te krijgen bij invoer van een gebruikersnaam
 		Student resultaat = null;
 		
 		for (Student s : deStudenten) {
@@ -113,7 +105,7 @@ public class PrIS {
 		return resultaat;
 	}
 	
-	public Les getLes(String les) {
+	public Les getLes(String les) {												// Methode om de Les object te krijgen bij invoer van begin datum en tijd
 		Les resultaat = null;
 		
 		for (Les l : deLessen) {
@@ -125,7 +117,7 @@ public class PrIS {
 		return resultaat;
 	}
 	
-	public ArrayList<Student> getStudentenVanKlas(String klasCode) {
+	public ArrayList<Student> getStudentenVanKlas(String klasCode) {			// Methode om een ArrayList te ontvangen met alle studenten van een bepaalde klasCode
 		ArrayList<Student> resultaat = new ArrayList<Student>();
 		
 		for (Student s : deStudenten) {
@@ -136,7 +128,7 @@ public class PrIS {
 		return resultaat;
 	}
 	
-	public ArrayList<Les> getLessenVanKlas(String klasCode) {
+	public ArrayList<Les> getLessenVanKlas(String klasCode) {					// Methode om een ArrayList van alle lessen van een klasCode te krijgen
 		ArrayList<Les> resultaat = new ArrayList<Les>();
 		
 		for (Les l : deLessen) {
@@ -145,14 +137,9 @@ public class PrIS {
 			}
 		}
 		return resultaat;
-	}
+	}	
 	
-//	public ArrayList<Presentie> getAbsentVanLes(Les les) {
-//		
-//	}
-	
-	
-	public void inladenKlas(String klas) throws FileNotFoundException {
+	public void inladenKlas(String klas) throws FileNotFoundException {			// Methode om de klassen te laden via de textbestanden of csv bestanden
 		String klasFile = klas + ".txt";
 		File f = new File(klasFile);
 		if (f.exists() && f.isFile()) {
@@ -187,7 +174,7 @@ public class PrIS {
 		}
 	}
 	
-	public void inladenRooster(String roosterFile) throws FileNotFoundException, ParseException {
+	public void inladenRooster(String roosterFile) throws FileNotFoundException, ParseException {		// Methode om de roosters in te laden via een txt of csv bestand
 		File f = new File(roosterFile);
 		if (f.exists() && f.isFile()) {
 			Scanner sc = new Scanner(f);

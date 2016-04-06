@@ -45,7 +45,15 @@ public class Les {
 		return "Les: "+vak+", van: "+docent+" \nin lokaal: "+lokaal;
 	}
 	
-	public Boolean ifLesDag(String dag, int week) {
+	public boolean ifNogNietGeweest() {								// controlleer of de de les niet al is begonnen
+		boolean b = false;
+		if (beginDate.after(Calendar.getInstance())) {
+			b = true;
+		}
+		return b;
+	}
+	
+	public Boolean ifLesDag(String dag, int week) {					// controlleren welke dag er is ingevoerd
 		Boolean b = false;
 		if (beginDate.get(Calendar.WEEK_OF_YEAR) == week) {
 			if (dag == "maandag" && beginDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
@@ -71,7 +79,7 @@ public class Les {
 		return datum+" "+beginTijd;
 	}
 	
-	public boolean ifHuidigeWeek(int week) {
+	public boolean ifHuidigeWeek(int week) {							// controlleer of het in de ingevoerde week valt
 		Boolean b = false;
 		if (beginDate.get(Calendar.WEEK_OF_YEAR) == week) {
 			b = true;
@@ -79,7 +87,7 @@ public class Les {
 		return b;
 	}
 	
-	public void setAfmelding(Student student) {
+	public void setAfmelding(Student student) {							// de ingevoerde student object afmelden voor de les
 		if (!afgemeldeStudenten.contains(student)) {
 			afgemeldeStudenten.add(student);
 			System.out.println(student.getGebruikersNaam()+" heeft zich afgemeld voor: "+getBeginDatumTijd());
@@ -91,10 +99,11 @@ public class Les {
 	}
 	
 	public boolean isAfgemeld(Student student){
+		Boolean b = false;
 		if (afgemeldeStudenten.contains(student)){
-			return true;
+			b = true;
 		}
-		return false;
+		return b;
 	}
 	
 	public String toString() {

@@ -9,6 +9,9 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException, ParseException {		
 		PrIS infoSysteem = new PrIS();
 		
+//		Gebruik deze klasse om de code te testen zonder de polymer te gebruiken. 
+//		Voornamelijk te gebruiken om het laden van de klassen en roosters te testen.
+		
 		infoSysteem.inladenKlas("SIE_V1A");
 		infoSysteem.inladenKlas("SIE_V1B");
 		infoSysteem.inladenKlas("SIE_V1C");

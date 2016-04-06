@@ -19,21 +19,16 @@
       }
     </style>
 
-    <h1 class="page-title">Overzicht van mijn afmeldingen ( {{username}} )<br />Druk op een les om er voor af te melden</h1>
+    <h1 class="page-title">Overzicht van mijn afmeldingen ( {{username}} )<br />Vul de ID van een les in om er voor af te melden</h1>
 
     <h2>Lessen voor deze week:</h2>
 
       <template is="dom-repeat" items="{{lessen}}">
-        <div><paper-button id="lesvalue" on-click="toggleDialog">{{index}} - {{item.lessen}}</paper-button></div>
+        <div>{{item.lessen}}</div>
       </template>
 
-      <paper-input label="text input">{{lesson}}</paper-input>
-
-    <h2>Afgemelde lessen:</h2>
-
-    <template is="dom-repeat" items="{{afgemeld}}">
-      <div>{{item.afgemeld}}</div>
-    </template>
+      <paper-input label="Voer ID van de les in" auto-validate pattern="[0-9]*" error-message="Alleen getallen!" value="{{lesson}}"></paper-input>
+      <paper-button on-click="toggleDialog" raised>Afmelden voor les</paper-button>
 
     <paper-dialog id="dialog">
       <h2>Header</h2>
@@ -79,10 +74,6 @@
           }
         },
 
-        setLabelText: function() {
-
-        }
-
         toggleDialog: function() {
             this.$.dialog.toggle();
         },
@@ -119,7 +110,7 @@
             this.$.ajax2.contentType="application/json";
             this.$.ajax2.body={
               "username":this.username,
-              "lesIndex":"19"
+              "lesIndex":this.lesson
             };
             this.$.ajax2.generateRequest();
           }

@@ -25,11 +25,6 @@
 
     <h1 class="page-title">Overzicht van mijn rooster ( {{username}} )<br />Druk op een les om er voor af te melden</h1>
 
-    <iron-selector selected="{{weekValue}}" attr-for-selected="page">
-      <paper-button page="-1"raised><iron-icon icon="image:navigate-before"></iron-icon>Vorige week</paper-button>
-      <paper-button page="1"raised><iron-icon icon="image:navigate-next"></iron-icon>Volgende week</paper-button>
-    </iron-selector>
-
     <h2 class="dag">Maandag:</h2>
     <template is="dom-repeat" items="{{lessen}}">
       <div>{{item.maandag}}</div>

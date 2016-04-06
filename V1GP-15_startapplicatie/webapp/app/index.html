@@ -106,7 +106,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <a data-route="toonafmelding" href="{{baseUrl}}afmeldingen" hidden="{{!rolstudent}}">
             <iron-icon icon="icons:schedule"></iron-icon>
-            <span>Toon afmeldingen</span>
+            <span>Afmelden</span>
+          </a>
+
+		      <a data-route="toongrafiek" href="{{baseUrl}}grafiek" hidden="{{!rolstudent}}">
+            <iron-icon icon="icons:assessment"></iron-icon>
+            <span>Toon grafiek</span>
           </a>
 
         </paper-menu>
@@ -178,6 +183,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <section data-route="toonafmelding">
               <paper-material elevation="1">
                 <my-afmelding rol="[[rol]]" username="[[username]]"></my-afmelding>
+              </paper-material>
+            </section>
+
+			      <section data-route="toongrafiek">
+              <paper-material elevation="1">
+                <my-grafiek rol="[[rol]]" username="[[username]]"></my-grafiek>
               </paper-material>
             </section>
 

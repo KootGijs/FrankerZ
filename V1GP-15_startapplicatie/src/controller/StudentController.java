@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -49,7 +50,7 @@ public class StudentController implements Handler {
 	 * 
 	 * @param conversation - alle informatie over het request
 	 */
-	private void mijnMedestudenten(Conversation conversation) {
+	private void mijnMedestudenten(Conversation conversation) {					// Zoekt de klasgenoten van de user
 		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String gebruikersnaam = jsonObjectIn.getString("username");
 		
@@ -71,7 +72,7 @@ public class StudentController implements Handler {
 		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI!
 	}
 
-	private void mijnRooster(Conversation conversation) {
+	private void mijnRooster(Conversation conversation) {						// laad het rooster van de klas van de user
 		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String gebruikersnaam = jsonObjectIn.getString("username");
 
@@ -82,23 +83,23 @@ public class StudentController implements Handler {
 		JsonArrayBuilder jab = Json.createArrayBuilder();						// Uiteindelijk gaat er een array...
 		
 		for (Les l : lessen) {													// met daarin voor elke les een JSON-object... 
-			if (l.ifLesDag("maandag",10)) {
-				jab.add(Json.createObjectBuilder()
-					.add("maandag", l.toString()));
+			if (l.ifLesDag("maandag",10) && !l.isAfgemeld(student)) {			// De Methode zoekt nu alleen de lessen van week 10. In de echte code zouden we de huidige
+				jab.add(Json.createObjectBuilder()								// week programmeren maar omdat het rooster dat gekregen is maar 3 weken duurt
+					.add("maandag", l.toString()));								// is er gekozen om een week te kiezen waar zich nog lessen in bevinden
 			}
-			if (l.ifLesDag("dinsdag",10)) {
+			if (l.ifLesDag("dinsdag",10) && !l.isAfgemeld(student)) {
 				jab.add(Json.createObjectBuilder()
 					.add("dinsdag", l.toString()));
 			}
-			if (l.ifLesDag("woensdag",10)) {
+			if (l.ifLesDag("woensdag",10) && !l.isAfgemeld(student)) {
 				jab.add(Json.createObjectBuilder()
 					.add("woensdag", l.toString()));
 			}
-			if (l.ifLesDag("donderdag",10)) {
+			if (l.ifLesDag("donderdag",10) && !l.isAfgemeld(student)) {
 				jab.add(Json.createObjectBuilder()
 					.add("donderdag", l.toString()));
 			}
-			if (l.ifLesDag("vrijdag",10)) {
+			if (l.ifLesDag("vrijdag",10) && !l.isAfgemeld(student)) {
 				jab.add(Json.createObjectBuilder()
 					.add("vrijdag", l.toString()));
 			}
@@ -107,7 +108,7 @@ public class StudentController implements Handler {
 		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI!
 	}
 	
-	private void mijnLessen(Conversation conversation) {
+	private void mijnLessen(Conversation conversation) {						// Alle lessen van de klas van de user sturen
 		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String gebruikersnaam = jsonObjectIn.getString("username");
 
@@ -120,17 +121,17 @@ public class StudentController implements Handler {
 		for (Les l : lessen) {													// met daarin voor elke les een JSON-object... 
 			if (l.ifHuidigeWeek(10)) {
 				jab.add(Json.createObjectBuilder()
-					.add("lessen", l.toString()));
+					.add("lessen", lessen.indexOf(l)+" - "+l.toString()));
 			}
 		}
 		
 		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI
 	}
 	
-	public void mijnAfmeldingVersturen(Conversation conversation) {
+	public void mijnAfmeldingVersturen(Conversation conversation) {				// het ontvangen van een afmelding
 		JsonObject jsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		String gebruikersnaam = jsonObjectIn.getString("username");
-		System.out.println(gebruikersnaam+" <-- probeerde af te melden");
+		System.out.println(gebruikersnaam+" <-- probeerde af te melden");   	// in de java console wordt getoond wie er wilt afmelden
 		
 		String lesNummerString = jsonObjectIn.getString("lesIndex");
 		int lesNummer = Integer.parseInt(lesNummerString);
@@ -138,20 +139,11 @@ public class StudentController implements Handler {
 		Student student = informatieSysteem.getStudent(gebruikersnaam);			// Student-object opzoeken
 		String klasCode = student.getMijnKlas().getKlasCode();					// klascode van de student opzoeken
 		ArrayList<Les> lessen = informatieSysteem.getLessenVanKlas(klasCode);
-
-//		JsonArrayBuilder jab = Json.createArrayBuilder();						// Uiteindelijk gaat er een array...
-		
-//		jab.add(Json.createObjectBuilder()
-//				.add("afgemeld", "test1"));
 		
 		for (Les l : lessen) {
-			if (lesNummer == lessen.indexOf(l)) {
+			if (lesNummer == lessen.indexOf(l) && !l.ifNogNietGeweest() && !l.isAfgemeld(student)) {
 				l.setAfmelding(student);
-//				jab.add(Json.createObjectBuilder()
-//						.add("afgemeld", l.toString()));
 			}
-		}
-//		conversation.sendJSONMessage(jab.build().toString());					// terug naar de Polymer-GUI		
+		}	
 	}
-	
 }
